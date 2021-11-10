@@ -1,0 +1,47 @@
+{
+    "Monster" :
+    {
+        "components":
+        [
+            {
+                "componentType" : "PositionableObject"
+            },
+            {
+                "componentType" : "MovingComponent"
+            }
+        ]
+    },
+    "Bat" :
+    {
+        "inherits" : "Monster",
+        "components":
+        [
+            {
+                "componentType" : "AnimatedSpriteRenderer", 
+                "params" : {"currentState" : "down", "spriteSheetName" : "./data/bat.json"}
+            }
+        ]
+    },
+    "RedBat" :
+    {
+        "inherits" : "Monster",
+        "components":
+        [
+            {
+                "componentType" : "AnimatedSpriteRenderer", 
+                "params" : {"currentState" : "down", "spriteSheetName" : "./data/bat.json", "tint" : "0xFF0000"}
+            }
+        ]
+    },
+    "GreenBat" :
+    {
+        "inherits" : "Monster",
+        "components":
+        [
+            {
+                "componentType" : "AnimatedSpriteRenderer", 
+                "params" : {"currentState" : "down", "spriteSheetName" : "./data/bat.json", "tint" : "0x00FF00"}
+            }
+        ]
+    }
+}
