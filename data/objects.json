@@ -18,7 +18,7 @@
         [
             {
                 "componentType" : "AnimatedSpriteRenderer", 
-                "params" : {"currentState" : "down", "spriteSheetName" : "./data/bat.json"}
+                "params" : {"currentState" : "down", "spriteSheetName" : "./data/bat.json", "name" : "spriteAnimator"}
             }
         ]
     },
@@ -37,7 +37,7 @@
         "inherits" : "Bat",
         "overrides":
         [
-            {"componentType" : "AnimatedSpriteRenderer",
+            {"componentName" : "spriteAnimator",
              "params" : {"tint" : "0x00FF00"} 
             }
         ]
