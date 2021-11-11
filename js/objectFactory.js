@@ -45,6 +45,21 @@ class ObjectFactory
     //Instances a game object of the given blue print name
     instanceBlueprint(name)
     {
+        let gObj = this._instanceBluePrint(name);
+
+        if(gObj != null)
+        {
+            for(let i in gObj.components)
+            {
+                gObj.components[i].addedToObject(gObj);
+           }
+        }
+
+        return gObj;
+    }
+
+    _instanceBluePrint(name)
+    {
         //Sainty check
         if(this.bluePrints.has(name))
         {
@@ -58,7 +73,7 @@ class ObjectFactory
             if(bluePrint.inherits !== undefined)
             {
                 //if the game object inherits a blue print 
-                gObj = this.instanceBlueprint(bluePrint.inherits);
+                gObj = this._instanceBluePrint(bluePrint.inherits);
             }
 
             //If inheritance was not present we can just contruct an empty game object
@@ -67,12 +82,11 @@ class ObjectFactory
                 gObj = new GameObject();
             }
 
+            let coms = new Array();
+
             //Does the blue print contain components
             if(bluePrint.components !== undefined)
             {   
-
-                let coms = new Array();
-
                 //Iterate over components listed in the blue print
                 for(let i in bluePrint.components)
                 {
@@ -108,13 +122,27 @@ class ObjectFactory
                     {
                         console.error("Unknown Component Type Reqested: " + bluePrint.components[i].componentType);
                     }
+                }
+            }
 
-                    //Call added to object after all components have been added avoids components that need refrences to other components
-                    //having issues with that component not having been added to the game object yet
-                    for(let k in coms)
+            if(bluePrint.overrides !== undefined)
+            {
+                for(let i in bluePrint.overrides)
+                {
+                    if(bluePrint.overrides[i].componentName !== undefined)
                     {
-                        coms[k].addedToObject(gObj);
+
                     }
+                    else
+                    {
+                        for(let j in bluePrint.overrides[i].params)
+                        {
+                            let comToOverride = gObj.getComponentsByType(bluePrint.overrides[i].componentType);
+                            comToOverride[0][j] = bluePrint.overrides[i].params[j];
+                        }
+                    }
+                    
+                    
                 }
             }
 
@@ -129,8 +157,8 @@ class ObjectFactory
         //Something went wrong
         return null;
     }
-}
 
+}
 
 //Base class for Components
 class Component

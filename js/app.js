@@ -110,7 +110,7 @@ class TestBedApp
                 coms[0].x = getRandomArbitrary(100,900);
                 coms[0].y = getRandomArbitrary(100,700);
             }
-            
+
             gameObjects.push(gObj);
         }
     }
